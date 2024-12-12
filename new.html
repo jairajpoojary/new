@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GST Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .nav-tabs .nav-link.active {
+            color: #fd7e14;
+            border-bottom: 3px solid #fd7e14;
+        }
+
+        #netPriceInput::placeholder {
+            text-align: right;
+        }
+
+        #gstInput::placeholder {
+            text-align: right;
+        }
+
+        /* Orange range slider styling */
+        #netPriceRange::-webkit-slider-thumb,
+        #gstRange::-webkit-slider-thumb {
+            background-color: rgb(247, 88, 66);
+            border-radius: 50%;
+        }
+
+        /* white clr for */
+        #netPriceRange::-webkit-slider-runnable-track,
+        #gstRange::-webkit-slider-runnable-track {
+            background-color: #e3ded9;
+            height: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <div class="container">
+        <h1 class="p-0">GST Calculator</h1>
+        <hr>
+        <br>
+        <div class="fw-bolder text-dark bg-white">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                        type="button" role="tab" aria-controls="nav-home" aria-selected="true">Buyer</button>
+                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                        type="button" role="tab" aria-controls="nav-profile"
+                        aria-selected="false">Manufacturing</button>
+                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+                        type="button" role="tab" aria-controls="nav-contact"
+                        aria-selected="false">wholesaler/Retailer</button>
+                </div>
+            </nav>
+            <br><br>
+            <div class="tab-content" id="nav-tabContent">
+                <!-- Buyer Tab -->
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
+                    tabindex="0">
+                    <!-- Net Price -->
+                    <div class="fw-bolder d-flex">
+                        <label for="netPriceInput" class="form-label">Net Price</label>
+                        <div class="d-flex ms-auto fw-bolder">
+                            <div class="input-group mb-3">
+                                <input type="text" id="netPriceInput" class="form-control fw-bolder"
+                                    placeholder="10,00,000 " aria-label="">
+                                <span class=" fw-bolder text-danger input-group-text">Rs</span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="range" class="form-range" id="netPriceRange" min="0" max="2000000" step="1000"
+                        value="1000000">
+                    <br><br>
+                    <!-- GST Rate -->
+                    <div class="fw-bolder d-flex mt-4">
+                        <label for="gstInput" class="form-label me-3">GST</label>
+                        <div class="d-flex ms-auto">
+                            <div class="input-group mb-3">
+                                <input type="text" id="gstInput" class="form-control fw-bolder" placeholder="18"
+                                    aria-label="Amount (to the nearest dollar)">
+                                <span class="fw-bolder text-danger input-group-text">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="range" class="form-range" id="gstRange" min="0" max="30" step="1" value="18">
+                    <br><br>
+                    <!-- Results Section -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-3 g-2">
+                                <div class="card bg-success text-white p-4 pt-2 pb-3">
+                                    <h6>Gross price</h6>
+                                    <br>
+                                    <h3 id="grossPriceDisplay">Rs. 11,80,000</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 g-2">
+                                <div class="card bg-primary text-white p-4 pt-2 pb-3">
+                                    <h6>CGST Amount</h6>
+                                    <br>
+                                    <h3 id="cgstAmountDisplay">Rs. 90,000</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 g-2">
+                                <div class="card bg-secondary text-white p-4 pt-2 pb-3">
+                                    <h6>IGST Amount</h6>
+                                    <br>
+                                    <h3 id="igstAmountDisplay">Rs. 90,000</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 g-2">
+                                <div class="card bg-dark text-white p-4 pt-2 pb-3">
+                                    <h6>TOTAL Tax</h6>
+                                    <br>
+                                    <h3 id="totalTaxDisplay">Rs. 1,80,000</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Manufacturing and Retailer Tabs (for display only) -->
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
+                    tabindex="0">
+                    <h1 style="text-align: center;">Manufacturing</h1>
+                </div>
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"
+                    tabindex="0">
+                    <h1 style="text-align: center;">Retailer</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>``
+
+const grossPriceDisplay = document.getElementById("grossPriceDisplay");
+const cgstAmountDisplay = document.getElementById("cgstAmountDisplay");
+const igstAmountDisplay = document.getElementById("igstAmountDisplay");
+const totalTaxDisplay = document.getElementById("totalTaxDisplay");
+
+function calculateGST() {
+    // Convert strings to decimal numbers
+    const netPrice = parseFloat(netPriceRange.value);
+    const gstRate = parseFloat(gstRange.value);
+    const totalTax = (netPrice * gstRate) / 100;
+    const cgstAmountigstAmount = totalTax / 2;
+    const grossPrice = netPrice + totalTax;
+
+// to seprate comma =.tolocalestring();
+    grossPriceDisplay.textContent = `Rs. ${grossPrice.toLocaleString()}`;
+    cgstAmountDisplay.textContent = `Rs. ${cgstAmountigstAmount.toLocaleString()}`;
+    igstAmountDisplay.textContent = `Rs. ${cgstAmountigstAmount.toLocaleString()}`;
+    totalTaxDisplay.textContent = `Rs. ${totalTax.toLocaleString()}`;
+}
+
+// Synchronize range slider with input fields
+// function syncInput() {
+//     netPriceRange.value = netPriceInput.value;
+//     gstRange.value = gstInput.value;
+//     calculateGST();
+// }
+
+// // Synchronize input fields with range slider
+// function syncRange() {
+//     netPriceInput.value = netPriceRange.value;
+//     gstInput.value = gstRange.value;
+//     calculateGST();
+// }
+
+// Event listeners for input boxes and range sliders
+
+
+// document.getElementById('netPriceInput').addEventListener("input",fInput);
+//         document.getElementById('gstInput').addEventListener("input", fInput);
+//         document.getElementById('netPriceRange').addEventListener("input",fRange);
+//         document.getElementById("gstRange").addEventListener("input",fRange);
+
+netPriceRange.addEventListener('input', function() {
+    netPriceInput.value = netPriceRange.value;
+    calculateGST();
+});
+
+netPriceInput.addEventListener('input', function() {
+    netPriceRange.value = netPriceInput.value;
+    calculateGST();
+});
+
+gstRange.addEventListener('input', function() {
+    gstInput.value = gstRange.value;
+    calculateGST();
+});
+
+gstInput.addEventListener('input', function() {
+    gstRange.value = gstInput.value;
+    calculateGST();
+}); 
+calculateGST();
+
+
+
+    </script>
+</body>
+
+</html>
